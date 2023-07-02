@@ -1,0 +1,46 @@
+Syspro 2021-2022
+Project2
+Hlias Tziotis sdi1300175
+
+H ergasia upoloi8hke se C kai plhroi ta zhtoumena ths askhshs.
+
+Sta periexomena uparxoun duo arxeia to Server kai to Client pou to ka8ena trexei 3exwrista.
+Me th dhmiourgia enos tuxaiou fakelou px Files, o client mporei na antigrapsei ta periexomena autou tou fakelou
+Ta kuria arxeia kwdika einai to server.c kai client.c, ta upoloipa arxeia einai h oura sto queue.c kai h getFiles.c
+
+
+
+Oson afora to prwtokollo tou server:
+
+Kata to connection tou server me ton client, o server grafei sto socket tou client to block size wste na 3erei o client poso na diabasei
+To programma dia8etei global metablhtes ta threads, ta blocks, thn oura kai th flag
+Exw dhmiourghsei duo condition variables cvar1,cvar2 wste na mporoun na stamane enalla3 ta worker threads otan h oura einai kenh, kai h comm thread otan h oura einai adeia
+Ola ta arxeia apostelnontai me socket 8 bytes ston client o opoios ta lambanei me antistoixo read ektos apo to ta periexomena tou arxeiou pou apostelnontai se block size
+
+O server gia ton ka8e client arxikopoiei to flag se 0, kai dhmiourgei ena communication thread kai worker threads.
+To communication thread lambanei to directory input, xrhsimpoiei th sunarthsh ReadFiles h opoia anadromika briskei ola ta arxeia pou uparxoun kai ta topo8etei sthn oura(an xwrane alliws stamataei.
+Exontas teleiwsei me ta arxeia h communication thread adeiazei thn oura gia teleutaia fora kai allazei th flag se 1 wste na mporoun na termatisoun kai worker threads.
+Telos h comm thread exei mia while(flag!=(threads+1)), opou to ka8e worker thread sthn e3odo tou au3anei to flag++ kai kanei signal sthn comm thread na teleiwsei kai auth.
+
+O ka8e worker brisketai se mia while(flag==0) loopa thn opoia mporei na metaballei mono h comm thread.
+lambanei to filename kai to stelnei ston client mazi me ta metadata kai ta periexomena.
+Sto telos ka8e apostolhs (eite filename,metadata,content) stelnetai ena xarakthristiko char wste na 3erei o client kai na proxwrhsei antistoixa.
+
+Sto telos h comm thread stelnei to "end" string pou shmatodotei ton termatismo tou client.
+
+
+
+
+Gia ton ka8e client:
+
+O client exei ena flag pou mporei na parei treis times.
+Sto flag=0 o client kanei strcat ta string pou dexetai sto filename mexri na labei xarakrthristiko string termatismou.
+Otan dex8ei auto shmainei oti elabe to filename, opou allazei to flag=1 dhmiourgei antisoixous fakelous kai anoigei to arxeio gia metadata
+
+Sto flag=1 o client pernaei ta metadata tou arxeiou mexri na labei xarakrthristiko string termatismou.
+Epeita allazei se flag=3
+
+Sto flag=3 o client grafei sto fp ta periexomena tou arxeiou mexri na labei xarakrthristiko string termatismou.
+Epeita allazei se flag=0
+
+
